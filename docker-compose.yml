@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    webserver:
+        build: webservice
+        expose: 
+            - "80"
+        ports:
+            - "8080:80"
+
+    database:
+        build: database 
+        expose: 
+            - "5432"
+        env_file: "config.env"
+
+    healthcheck:
+        build: 
+            context: healthcheck
+            args: 
+                checks: healthchecks.json
+        environment:
+            INTERVAL: 5
+        env_file: "config.env"

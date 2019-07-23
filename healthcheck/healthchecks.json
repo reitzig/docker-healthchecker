@@ -1,0 +1,12 @@
+[
+    {
+        "description": "Webservice responds",
+        "command": "curl TODO",
+        "timeout": "1s"
+    },
+    {
+        "description": "Database responds",
+        "command": "psql ... 'SELECT COUNT(*) FROM data;'",
+        "timeout": "1s"
+    }
+]
