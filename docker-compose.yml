@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    webserver:
+    webservice:
         build: webservice
         expose: 
             - "80"

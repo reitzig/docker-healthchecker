@@ -1,12 +1,20 @@
 [
     {
         "description": "Webservice responds",
-        "command": "curl TODO",
+        "command": [
+            "curl",
+            "-f",
+            "webservice/contenst.json"
+        ],
         "timeout": "1s"
     },
     {
         "description": "Database responds",
-        "command": "psql ... 'SELECT COUNT(*) FROM data;'",
+        "command": [
+            "psql",
+            "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database/${POSTGRES_DB}",
+            "-c", "SELECT COUNT(*) FROM data;"
+        ],
         "timeout": "1s"
     }
 ]

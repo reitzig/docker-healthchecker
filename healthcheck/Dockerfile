@@ -13,7 +13,8 @@ ARG checks
 ENV CHECKS=${checks}
 
 RUN apk update && apk add --no-cache \
-    postgresql-client=11.4-r0
+    postgresql-client=11.4-r0 \
+    curl=7.65.1-r0
 
 COPY --from=build \
     /go/compute_health \
