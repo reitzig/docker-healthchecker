@@ -10,59 +10,64 @@ import (
 	"time"
 )
 
-type HealthCheck struct {
-	Description string
-	Command     []string
-	Timeout     time.Duration
-}
-
-func check(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func expandEnv(slice []string) []string {
-	result := make([]string, len(slice))
-	for i, v := range slice {
-		result[i] = os.ExpandEnv(v)
-	}
-	return result
-}
-
 func main() {
 	checksFile := os.Args[1]
 	checksInterval, err := strconv.Atoi(os.Getenv("INTERVAL"))
 	check(err)
 
+	targetFolder := os.Getenv("SUMMARY_DIR")
+
 	checksJSON, err := ioutil.ReadFile(checksFile)
 	check(err)
 
 	var checks []HealthCheck
-	json.Unmarshal([]byte(checksJSON), &checks)
+	err = json.Unmarshal([]byte(checksJSON), &checks)
+	check(err)
 
 	for {
 		fmt.Println("Computing health")
 
+		summary := make(map[string]*HealthSummary)
+		allSummary := new(HealthSummary)
+		allSummary.Status = 0
+		allStartTime := time.Now()
 		for _, check := range checks {
 			fmt.Printf(" - %+v?\n", check.Description)
 
-			// TODO: Use timout
-			// TODO: capture stdout
+			checkSummary := new(HealthSummary)
+			startTime := time.Now()
+
+			// TODO: capture stdout --> https://stackoverflow.com/a/40770011/539599
 			parameters := expandEnv(check.Command[1:])
 			cmd := exec.Command(check.Command[0], parameters...)
-			err := cmd.Run()
+			err := cmd.Run() // TODO: Use timout
+			// --> https://medium.com/@vCabbage/go-timeout-commands-with-os-exec-commandcontext-ba0c861ed738
 
 			if err != nil {
 				fmt.Printf("   -> ERROR: %+v\n", err)
+				checkSummary.Status = exitStatus(err)
+				checkSummary.Output = "??" // TODO
+				allSummary.Status = 1
 			} else {
 				fmt.Println("   -> OKAY")
+				checkSummary.Status = 0
+				checkSummary.Output = "??" // TODO
 			}
 
-			// TODO: Collect result
+			checkSummary.Duration = 0
+			checkSummary.Duration = time.Now().Sub(startTime)
+			summary[check.Description] = checkSummary
 		}
 
-		// TODO: Write summary
+		allSummary.Duration = time.Now().Sub(allStartTime)
+		summary["all"] = allSummary
+
+		summaryFile, err := json.MarshalIndent(summary, "", "    ")
+		check(err)
+
+		err = ioutil.WriteFile(targetFolder+"/all.json", summaryFile, os.ModeExclusive)
+		check(err)
+
 		time.Sleep(time.Duration(checksInterval) * time.Second)
 	}
 }

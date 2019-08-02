@@ -2,8 +2,8 @@ FROM golang:1.12.7-alpine3.10 AS build
 
 COPY src/*.go ./
 
-RUN go build compute_health.go \
- && go build check_health.go
+RUN go build compute_health.go shared.go \
+ && go build check_health.go shared.go
 
 # # # # # # # # # # # # # # # # # # # # #
 

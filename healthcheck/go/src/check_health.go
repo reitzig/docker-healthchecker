@@ -1,10 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	"io/ioutil"
+	"os"
 )
 
 func main() {
-	fmt.Println("Checking health...")
-	// os.Exit(42)
+	targetFolder := os.Getenv("SUMMARY_DIR")
+
+	summaryJson, err := ioutil.ReadFile(targetFolder + "/all.json")
+	check(err)
+
+	var summary map[string]*HealthSummary
+	err = json.Unmarshal([]byte(summaryJson), &summary)
+	check(err)
+
+	os.Exit(summary["all"].Status)
 }
