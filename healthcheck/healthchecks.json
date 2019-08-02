@@ -4,7 +4,7 @@
         "command": [
             "curl",
             "-f",
-            "webservice/contenst.json"
+            "webservice/content.json"
         ],
         "timeout": "1s"
     },

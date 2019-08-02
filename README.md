@@ -13,3 +13,14 @@ Criteria are:
  - Low runtime requirements for the final container.
  
 Yes, I want to get rid of the ubiquituous "small" shell script as a default approach.
+
+### Go
+
+<!-- TODO write some observations -->
+
+## Run
+
+```bash
+docker build -t healthcheck --build-arg checks=healthchecks.json healthcheck/
+docker-compose -d up
+```

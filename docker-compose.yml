@@ -14,11 +14,8 @@ services:
             - "5432"
         env_file: "config.env"
 
-    healthcheck:
-        build: 
-            context: healthcheck
-            args: 
-                checks: healthchecks.json
+    healthcheck-go:
+        build: healthcheck/go
         environment:
             INTERVAL: 5
         env_file: "config.env"
