@@ -67,6 +67,8 @@ func main() {
 
 		err = ioutil.WriteFile(targetFolder+"/all.json", summaryFile, os.ModeExclusive)
 		check(err)
+		err = os.Chmod(targetFolder+"/all.json", 0644)
+		check(err)
 
 		time.Sleep(time.Duration(checksInterval) * time.Second)
 	}
