@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -10,13 +13,27 @@ import (
 type HealthCheck struct {
 	Description string
 	Command     []string
-	//Timeout     time.Duration
+	Timeout     Duration
 }
 
 type HealthSummary struct {
 	Status   int
 	Output   string
-	Duration time.Duration
+	Duration Duration
+}
+
+type Duration time.Duration
+
+func (d *Duration) UnmarshalJSON(data []byte) error {
+	stringLiteral := string(data)
+	durationString := strings.Trim(stringLiteral, "\"")
+	duration, err := time.ParseDuration(durationString)
+	*d = Duration(duration)
+	return err
+}
+
+func (d Duration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(fmt.Sprintf("%s", time.Duration(d)))
 }
 
 func check(err error) {

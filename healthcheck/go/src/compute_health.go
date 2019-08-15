@@ -21,7 +21,7 @@ func main() {
 	check(err)
 
 	var checks []HealthCheck
-	err = json.Unmarshal([]byte(checksJSON), &checks)
+	err = json.Unmarshal(checksJSON, &checks)
 	check(err)
 
 	for {
@@ -55,11 +55,11 @@ func main() {
 			}
 
 			checkSummary.Duration = 0
-			checkSummary.Duration = time.Now().Sub(startTime)
+			checkSummary.Duration = Duration(time.Now().Sub(startTime))
 			summary[check.Description] = checkSummary
 		}
 
-		allSummary.Duration = time.Now().Sub(allStartTime)
+		allSummary.Duration = Duration(time.Now().Sub(allStartTime))
 		summary["all"] = allSummary
 
 		summaryFile, err := json.MarshalIndent(summary, "", "    ")
