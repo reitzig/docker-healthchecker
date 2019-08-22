@@ -35,9 +35,11 @@ More specifically, the following language or library features are needed.
 
 First, some numbers. Smaller is better.
 
-|    | LOC | LOD |  SOF  |  SLI  |
-|----|-----|-----|-------|-------|
-| Go | 135 |  15 | 5.4MB | 356MB |
+|      | LOC | LOD |  SOF   |  SLI  |
+|------|-----|-----|--------|-------|
+| Ruby | ??? |  29 | 34.0MB | 258MB |
+|  Go  | 135 |  15 |  5.4MB | 356MB |
+<!-- TODO: update after Ruby is done -->
 <!-- TODO: update after Go is done -->
 
 Where the metrics are defined as follows:
@@ -52,7 +54,7 @@ And now some subjective observations.
 
 <!-- ### TODO: Bash -- the reference -->
 
-<!-- ### TODO: Ruby -- why scripting languages don't help -->
+### Ruby -- why scripting languages don't help
 
 ### Go
 

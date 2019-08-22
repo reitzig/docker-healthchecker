@@ -1,0 +1,5 @@
+#!/bin/sh
+
+checks_file=$(realpath "${1}")
+cd app
+bundle exec ruby compute_health.rb "${checks_file}"
