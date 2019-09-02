@@ -32,3 +32,11 @@ services:
     env_file: "config.env"
     ports:
       - "8090:80"
+
+  healthcheck-crystal:
+    build: healthcheck/crystal
+    environment:
+      INTERVAL: 5
+    env_file: "config.env"
+    ports:
+      - "8091:80"
