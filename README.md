@@ -37,7 +37,7 @@ First, some numbers. Smaller is better.
 
 |      | LOC | LOD |  SOF   |  SLI  |
 |------|-----|-----|--------|-------|
-| Ruby | ??? |  29 | 34.0MB | 258MB |
+| Ruby | ??? |  29 | 17.4MB | 258MB |
 |  Go  | 135 |  15 |  5.4MB | 356MB |
 <!-- TODO: update after Ruby is done -->
 <!-- TODO: update after Go is done -->

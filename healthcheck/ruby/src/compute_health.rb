@@ -27,6 +27,10 @@ while true
         summary[check[:description]] = check_summary
     end
     summary[:all][:duration] = pretty_duration(Time.now, all_start_time)
+    summary[:all][:finished] = Time.now
+
+    File.open("#{target_folder}/all.json", 'w') { |f| f.write(JSON.pretty_generate(summary)) }
+    FileUtils.chmod(0644, "#{target_folder}/all.json")
 
     sleep checks_interval
 end

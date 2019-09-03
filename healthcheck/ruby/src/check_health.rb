@@ -6,4 +6,4 @@ target_folder = ENV['SUMMARY_DIR']
 summary_json = File.read("#{target_folder}/all.json")
 summary = JSON.parse(summary_json, symbolize_names: true)
 
-exit(summary[:all][:status] || 1)
+exit(summary[:all][:status].to_i || 1)

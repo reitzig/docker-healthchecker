@@ -19,24 +19,24 @@ services:
     # it could not be smoke-tested from the outside.
     env_file: "config.env"
 
-  # # # # # # # # #
-  # Healthcheck Variants
-  #
-  # You would only have one of those.
-  # # # # # # # # #
+    # # # # # # # # #
+    # Healthcheck Variants
+    #
+    # You would only have one of those.
+    # # # # # # # # #
 
     healthcheck-ruby:
-        build: healthcheck/ruby
-        environment:
-            INTERVAL: 5
-        env_file: "config.env"
-        ports:
-            - "8089:80"
+      build: healthcheck/ruby
+      environment:
+        INTERVAL: 5
+      env_file: "config.env"
+      ports:
+        - "8089:80"
 
     healthcheck-go:
-        build: healthcheck/go
-        environment:
-            INTERVAL: 5
-        env_file: "config.env"
-        ports:
-            - "8090:80"
+      build: healthcheck/go
+      environment:
+        INTERVAL: 5
+      env_file: "config.env"
+      ports:
+        - "8090:80"

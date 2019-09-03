@@ -54,7 +54,6 @@ func main() {
 				checkSummary.Output = "??" // TODO
 			}
 
-			checkSummary.Duration = 0
 			checkSummary.Duration = Duration(time.Now().Sub(startTime))
 			summary[check.Description] = checkSummary
 		}
