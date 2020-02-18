@@ -1,4 +1,4 @@
-FROM alpine:3.10.1 AS run
+FROM alpine:3.11 AS run
 
 ARG checks
 ENV CHECKS=checks.json \
@@ -8,8 +8,8 @@ ENV CHECKS=checks.json \
 
 RUN apk update \
  && apk add --no-cache \
-        postgresql-client=11.4-r0 \
-        curl=7.65.1-r0 \
+        postgresql-client=12.2-r0 \
+        curl=7.67.0-r0 \
         mini_httpd=1.30-r0 \
  && mkdir -p "$SUMMARY_DIR" "$(dirname $MINI_HTTP_CONF)" \
  && echo -e "port=80\nuser=minihttpd\ndir=$SUMMARY_DIR\nchroot" \

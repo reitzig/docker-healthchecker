@@ -1,3 +1,3 @@
-FROM nginx:1.17.1-alpine
+FROM nginx:1.17-alpine
 
 COPY content.json /usr/share/nginx/html/
